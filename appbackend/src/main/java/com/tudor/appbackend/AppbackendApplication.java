@@ -1,4 +1,4 @@
-package com.tudy.appbackend;
+package com.tudor.appbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
