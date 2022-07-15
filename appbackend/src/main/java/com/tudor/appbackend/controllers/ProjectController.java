@@ -2,6 +2,7 @@ package com.tudor.appbackend.controllers;
 
 import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.servicies.ProjectService;
+import com.tudor.appbackend.servicies.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,11 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
     @PostMapping("/add")
     public ResponseEntity<Project> addProject(@RequestBody Project prj){
+        prj.setId(sequenceGeneratorService.getSequenceNumber(Project.SEQUENCE_NAME));
         return  new ResponseEntity<Project>(projectService.addProject(prj), HttpStatus.OK);
     }
     @GetMapping("/list")

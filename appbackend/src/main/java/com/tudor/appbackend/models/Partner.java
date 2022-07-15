@@ -3,6 +3,7 @@ package com.tudor.appbackend.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -11,6 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("partner")
 public class Partner {
 
+    @Transient
+    public static final String SEQUENCE_NAME="partner_sequence";
     private int id;
     private String name;
     private String email;

@@ -2,7 +2,9 @@ package com.tudor.appbackend.controllers;
 
 
 import com.tudor.appbackend.models.Partner;
+import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.servicies.PartnerService;
+import com.tudor.appbackend.servicies.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +20,11 @@ public class PartnerController {
     @Autowired
     private PartnerService partnerService;
 
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
     @PostMapping("/add")
     public ResponseEntity<Partner> addPartner(@RequestBody Partner part){
+        part.setId(sequenceGeneratorService.getSequenceNumber(Partner.SEQUENCE_NAME));
         return  new ResponseEntity<Partner>(partnerService.addPartner(part), HttpStatus.OK);
     }
     @GetMapping("/list")
