@@ -22,26 +22,26 @@ public class PartnerController {
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Partner> addPartner(@RequestBody Partner part){
         part.setId(sequenceGeneratorService.getSequenceNumber(Partner.SEQUENCE_NAME));
         return  new ResponseEntity<Partner>(partnerService.addPartner(part), HttpStatus.OK);
     }
-    @GetMapping("/list")
+    @GetMapping
     public List<Partner> getPartners(){
         return partnerService.getPartners();
     }
-    @GetMapping("/list/{id}")
+    @GetMapping("/{id}")
     public Optional<Partner> getProjectById(@PathVariable("id") int id){
 
         return partnerService.findById(id);
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public Partner updatePartner(@PathVariable("id") int id, @RequestBody Partner partner){
         return partnerService.updatePartner(id, partner);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("{id}")
     public String delete(@PathVariable("id") int id){
          partnerService.deleteBiId(id);
          return "deleted";

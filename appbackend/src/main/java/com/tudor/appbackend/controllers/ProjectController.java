@@ -20,25 +20,25 @@ public class ProjectController {
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Project> addProject(@RequestBody Project prj){
         prj.setId(sequenceGeneratorService.getSequenceNumber(Project.SEQUENCE_NAME));
         return  new ResponseEntity<Project>(projectService.addProject(prj), HttpStatus.OK);
     }
-    @GetMapping("/list")
+    @GetMapping
     public List<Project> getProjects(){
         return projectService.getProjects();
     }
-    @GetMapping("/list/{id}")
+    @GetMapping("{id}")
     public Optional<Project> getProjectById(@PathVariable("id") int id){
         return projectService.findById(id);
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public Project updateProject(@PathVariable("id") int id, @RequestBody Project project){
         return projectService.updateProject(id, project);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("{id}")
     public String delete(@PathVariable("id") int id){
          projectService.delete(id);
          return "deleted";
