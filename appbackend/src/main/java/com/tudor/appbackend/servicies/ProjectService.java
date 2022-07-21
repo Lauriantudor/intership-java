@@ -34,6 +34,8 @@ public class ProjectService {
             if (project.getDatestart() != null && !project.getDatestart().isEmpty())
                 project1.setDatestart(project.getDatestart());
             if (project.getDatefinish() != null && !project.getDatefinish().isEmpty())
+                project1.setDatefinish(project.getDatefinish());
+            if (project.getPrice() != null && !project.getPrice().isEmpty())
                 project1.setDatestart(project.getDatefinish());
 
             return projectRepo.save(project1);

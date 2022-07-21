@@ -12,13 +12,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Document("project")
 public class Project {
+
     @Transient
     public static final String SEQUENCE_NAME="project_sequence";
+
     @Id
     private int id;
     private String name;
     private String datestart;
     private String datefinish;
+    private String price;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
     public int getId() {
         return id;

@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/project")
+
 public class ProjectController {
 
     @Autowired
@@ -21,11 +22,13 @@ public class ProjectController {
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:4200/")
     public ResponseEntity<Project> addProject(@RequestBody Project prj){
         prj.setId(sequenceGeneratorService.getSequenceNumber(Project.SEQUENCE_NAME));
         return  new ResponseEntity<Project>(projectService.addProject(prj), HttpStatus.OK);
     }
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:4200/")
     public List<Project> getProjects(){
         return projectService.getProjects();
     }
@@ -33,12 +36,14 @@ public class ProjectController {
     public Optional<Project> getProjectById(@PathVariable("id") int id){
         return projectService.findById(id);
     }
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
+    @CrossOrigin(origins = "http://localhost:4200/")
     public Project updateProject(@PathVariable("id") int id, @RequestBody Project project){
         return projectService.updateProject(id, project);
     }
 
     @DeleteMapping("{id}")
+    @CrossOrigin(origins = "http://localhost:4200/")
     public String delete(@PathVariable("id") int id){
          projectService.delete(id);
          return "deleted";

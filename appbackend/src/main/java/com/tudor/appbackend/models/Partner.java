@@ -17,6 +17,9 @@ public class Partner {
     private int id;
     private String name;
     private String email;
+    private String contactus;
+    private String aboutus;
+
 
     public int getId() {
         return id;
@@ -58,7 +61,5 @@ public class Partner {
         this.aboutus = aboutus;
     }
 
-    private String contactus;
-    private String aboutus;
 
 }
