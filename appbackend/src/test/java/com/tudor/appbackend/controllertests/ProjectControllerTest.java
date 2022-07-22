@@ -1,11 +1,12 @@
 package com.tudor.appbackend.controllertests;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.repo.ProjectRepo;
 import com.tudor.appbackend.servicies.ProjectService;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,7 +42,7 @@ public class ProjectControllerTest {
         prj.setDatestart("09.08.2346");
         prj.setDatefinish("09.08.2347");
         prj.setPrice("100$");
-        repo.save(prj);
+        service.addProject(prj);
         assertNotNull(repo.findById(prj.getId()));
           }
     @Test
@@ -52,8 +53,8 @@ public class ProjectControllerTest {
         prj.setDatestart("09.08.2346");
         prj.setDatefinish("09.08.2347");
         prj.setPrice("100$");
-        repo.save(prj);
-        repo.findById(34);
+        service.addProject(prj);
+        service.findById(34);
         assertEquals(34,prj.getId());
     }
     @Test
@@ -64,7 +65,7 @@ public class ProjectControllerTest {
         prj.setDatestart("09.08.2346");
         prj.setDatefinish("09.08.2347");
         prj.setPrice("100$");
-        
+        service.addProject(prj);
         Project prjUP = new Project();
         prjUP.setId(34);
         prjUP.setName("BoockS");
@@ -72,7 +73,20 @@ public class ProjectControllerTest {
         prjUP.setDatefinish("09.08.2347");
         prjUP.setPrice("50$");
         service.updateProject(34, prjUP);
-        assertNotEquals("100$", repo.findById(34).get().getPrice());
+       Assertions.assertEquals("50$", prjUP.getPrice());
+    }
+
+    @Test
+    public void deleteProject(){
+        Project prj = new Project(
+                34,
+               "Boock",
+                "09.08.2346",
+                "09.08.2347",
+                "100$"
+        );
+        service.delete(prj.getId());
+        assertNull(prj);
     }
 
 }
