@@ -31,7 +31,7 @@ public class ProjectControllerTest {
     public void getProjectsTest(){
         when(repo.findAll()).thenReturn(Stream
                 .of(new Project(4, "INSTA", "09.08.2005","24.07.2006","5432$"),
-                        new Project(4, "IN", "09.08.2005","24.07.2006","5432$")).collect(Collectors.toList()));
+                        new Project(5, "IN", "09.08.2005","24.07.2006","5432$")).collect(Collectors.toList()));
         assertEquals(2,service.getProjects().size());
     }
     @Test

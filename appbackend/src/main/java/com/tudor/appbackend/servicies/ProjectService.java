@@ -43,6 +43,6 @@ public class ProjectService {
         return null;
     }
     public void delete(int id) {
-         projectRepo.deleteById(id);
+        projectRepo.deleteById(id);
     }
 }
