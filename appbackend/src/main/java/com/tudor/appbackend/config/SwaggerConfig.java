@@ -14,11 +14,12 @@ import static springfox.documentation.builders.PathSelectors.regex;
 public class SwaggerConfig {
 
     @Bean
-    public Docket projectApi(){
+    public Docket publicApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.tudor.appbackend"))
                 .paths(regex("/rest.*"))
-                .build();
+                .build()
+                .groupName("apis-public");
     }
 }

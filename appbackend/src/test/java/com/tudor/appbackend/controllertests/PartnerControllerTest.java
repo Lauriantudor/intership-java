@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -82,7 +82,7 @@ public class PartnerControllerTest {
     }
 
     @Test
-    public void deletePartner(){
+    public void deletePartnerTest(){
         Partner part = new Partner();
         part.setId(34);
         part.setName("Boock");
@@ -90,7 +90,7 @@ public class PartnerControllerTest {
         part.setContactus("(0754)-878-090");
         part.setAboutus("boocks for all");
         service.deleteBiId(part.getId());
-        assertNull(part);
+        verify(repo,times(1)).deleteById(part.getId());
     }
 
 }

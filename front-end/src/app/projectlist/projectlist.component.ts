@@ -37,7 +37,7 @@ export class ProjectlistComponent implements OnInit {
        this.projects=this.projectService.listProjectsFromRemote();        
       
       },
-    error=>console.log(error)
+    error=>console.log("delete not working")
     ); 
   }
   goBack(){

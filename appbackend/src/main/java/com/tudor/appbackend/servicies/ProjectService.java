@@ -4,11 +4,13 @@ import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.repo.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ProjectService {
     @Autowired
     private ProjectRepo projectRepo;

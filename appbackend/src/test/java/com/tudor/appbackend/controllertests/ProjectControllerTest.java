@@ -86,7 +86,7 @@ public class ProjectControllerTest {
                 "100$"
         );
         service.delete(prj.getId());
-        assertNull(prj);
+        verify(repo,times(1)).deleteById(prj.getId());
     }
 
 }

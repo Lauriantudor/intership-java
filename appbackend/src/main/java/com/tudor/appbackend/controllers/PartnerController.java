@@ -2,7 +2,6 @@ package com.tudor.appbackend.controllers;
 
 
 import com.tudor.appbackend.models.Partner;
-import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.servicies.PartnerService;
 import com.tudor.appbackend.servicies.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
