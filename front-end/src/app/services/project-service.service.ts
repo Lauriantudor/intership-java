@@ -25,5 +25,8 @@ export class ProjectServiceService {
   deleteProject(id:number): Observable<any> {
     return this._http.delete("http://localhost:8080/rest/project/"+id)
   }
+  addPartnerto(idproj:number, idpart:number): Observable<any> {
+    return this._http.post<any>("http://localhost:8080/rest/project/addto/"+idproj, idpart)
+  }
   
 }

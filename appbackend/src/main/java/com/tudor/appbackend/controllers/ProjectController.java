@@ -1,6 +1,7 @@
 package com.tudor.appbackend.controllers;
 
 import com.tudor.appbackend.models.Project;
+import com.tudor.appbackend.servicies.PartnerService;
 import com.tudor.appbackend.servicies.ProjectService;
 import com.tudor.appbackend.servicies.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private PartnerService partnerService;
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
@@ -41,6 +44,14 @@ public class ProjectController {
     public Project updateProject(@PathVariable("id") int id, @RequestBody Project project){
         return projectService.updateProject(id, project);
     }
+    @PostMapping("addto/{id}")
+    @CrossOrigin(origins = "http://localhost:4200/")
+    public void addpartner(@PathVariable("id") int id,
+                              @RequestParam int idpart){
+        partnerService.addproject(id,idpart);
+
+    }
+
 
     @DeleteMapping("{id}")
     @CrossOrigin(origins = "http://localhost:4200/")

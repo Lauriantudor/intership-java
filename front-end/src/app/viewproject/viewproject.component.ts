@@ -22,6 +22,9 @@ export class ViewprojectComponent implements OnInit {
     )
 
   }
+  goToAddPartner(id:any){
+    this._rote.navigate(['addpartnerto',id])
+  }
   goBack(){
     this._rote.navigate(['projectlist']);
   }

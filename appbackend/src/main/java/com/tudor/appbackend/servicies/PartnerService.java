@@ -42,6 +42,15 @@ public class PartnerService {
         }
         return null;
     }
+    public Partner addproject(int proj_id,int part_id){
+        Optional<Partner> findById = partnerRepo.findById(part_id);
+        if (findById.isPresent()){
+            Partner partner1 = findById.get();
+            partner1.setProj_id(proj_id);
+            return partnerRepo.save(partner1);
+        }
+        return null;
+    }
     public void deleteBiId(int id){
         partnerRepo.deleteById(id);
     }

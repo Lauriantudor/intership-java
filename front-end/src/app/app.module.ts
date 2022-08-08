@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddpartnerComponent } from './addpartner/addpartner.component';
 import { ViewpartnerComponent } from './viewpartner/viewpartner.component';
 import { EditpartnerComponent } from './editpartner/editpartner.component';
+import { AddpartnertoprojComponent } from './addpartnertoproj/addpartnertoproj.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { EditpartnerComponent } from './editpartner/editpartner.component';
     PartnerlistComponent,
     AddpartnerComponent,
     ViewpartnerComponent,
-    EditpartnerComponent
+    EditpartnerComponent,
+    AddpartnertoprojComponent
   ],
   imports: [
     BrowserModule,

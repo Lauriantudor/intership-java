@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddpartnerComponent } from './addpartner/addpartner.component';
+import { AddpartnertoprojComponent } from './addpartnertoproj/addpartnertoproj.component';
 import { AddprojectComponent } from './addproject/addproject.component';
 import { EditpartnerComponent } from './editpartner/editpartner.component';
 import { EditprojectComponent } from './editproject/editproject.component';
@@ -23,6 +24,8 @@ const routes: Routes = [
 
   {path: 'partnerlist', component:PartnerlistComponent},
   {path: 'addpartner', component:AddpartnerComponent},
+
+  {path:'addpartnerto/:id', component:AddpartnertoprojComponent},
   {path: 'viewpartner/:id', component:ViewpartnerComponent},
   {path: 'editpartner/:id', component:EditpartnerComponent}
 ];

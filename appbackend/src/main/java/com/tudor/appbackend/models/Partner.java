@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,8 +21,17 @@ public class Partner {
     private String email;
     private String contactus;
     private String aboutus;
+    private int proj_id;
 
+    public int getProj_id() {
+        return proj_id;
+    }
 
+    public void setProj_id(int proj_id) {
+        this.proj_id = proj_id;
+    }
+
+    //partner sumary id &name
     public int getId() {
         return id;
     }

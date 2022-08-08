@@ -31,14 +31,23 @@ export class ProjectlistComponent implements OnInit {
       this._roter.navigate(['viewproject',id])
   }
   deleteProject(id:number){
-    this.projectService.deleteProject(id).subscribe(
-      (data) =>{
-        console.log("Deleted successfuly");
-       this.projects=this.projectService.listProjectsFromRemote();        
-      
+     this.projectService.deleteProject(id).subscribe({
+      next:(result) => {
+        alert("deleteProject ok")
       },
-    error=>console.log("delete not working")
-    ); 
+      error:()=>{alert("Eror")}
+     }
+      
+      //     (data) =>{
+  //       console.log("Deleted successfuly");
+  //      this.projects=this.projectService.listProjectsFromRemote();        
+      
+  //     },
+  //   error=>{
+  //     console.log("delete not working");
+     
+  // }
+  ); 
   }
   goBack(){
     this._roter.navigate(['projectlist']);

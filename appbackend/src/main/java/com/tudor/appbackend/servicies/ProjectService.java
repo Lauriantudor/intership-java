@@ -1,6 +1,8 @@
 package com.tudor.appbackend.servicies;
 
+import com.tudor.appbackend.models.Partner;
 import com.tudor.appbackend.models.Project;
+import com.tudor.appbackend.repo.PartnerRepo;
 import com.tudor.appbackend.repo.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.Optional;
 public class ProjectService {
     @Autowired
     private ProjectRepo projectRepo;
+    @Autowired
+    private PartnerRepo partnerRepo;
 
     public Project addProject(Project prj){
         return projectRepo.save(prj);
@@ -44,6 +48,7 @@ public class ProjectService {
         }
         return null;
     }
+
     public void delete(int id) {
         projectRepo.deleteById(id);
     }
