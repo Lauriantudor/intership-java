@@ -2,8 +2,10 @@ package com.tudor.appbackend.controllertests;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import com.tudor.appbackend.models.Partner;
 import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.repo.ProjectRepo;
+import com.tudor.appbackend.servicies.PartnerService;
 import com.tudor.appbackend.servicies.ProjectService;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -23,6 +25,9 @@ public class ProjectControllerTest {
 
     @Autowired
     private ProjectService service;
+
+    @Autowired
+    private PartnerService partnerService;
 
     @MockBean
     private ProjectRepo repo;
@@ -45,6 +50,27 @@ public class ProjectControllerTest {
         service.addProject(prj);
         assertNotNull(repo.findById(prj.getId()));
           }
+//    @Test
+//     public void addProjectToTest(){
+//         Project prj = new Project();
+//         prj.setId(34);
+//         prj.setName("Boock");
+//         prj.setDatestart("09.08.2346");
+//         prj.setDatefinish("09.08.2347");
+//         prj.setPrice("100$");
+//         service.addProject(prj);
+//
+//         Partner part = new Partner();
+//         part.setId(21);
+//         part.setName("Boock");
+//         part.setEmail("boock@gmail.com");
+//         part.setContactus("(0754)-878-090");
+//         part.setAboutus("boocks for all");
+//         part.setProj_id(0);
+//         partnerService.addPartner(part);
+//         partnerService.addproject(34,21);
+//         Assertions.assertEquals(34, part.getProj_id());
+//     }
     @Test
     public void getProjectByIdTest(){
         Project prj = new Project();
@@ -86,7 +112,7 @@ public class ProjectControllerTest {
                 "100$"
         );
         service.delete(prj.getId());
-        verify(repo,times(1)).deleteById(prj.getId());
+        assertNull(prj);
     }
 
 }

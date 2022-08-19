@@ -1,5 +1,5 @@
 <div class="container">
-	<h2>Details of patner</h2>
+	<h2>Details of Project</h2>
 	        <div>
 				<label>Name:</label>{{ project.name }}
 			</div>
@@ -13,6 +13,25 @@
 			<div>
 				<label>Price:</label>{{ project.price }}
 			</div>
+			<div>Partners of {{ project.name}}</div>
+			<table class="table">
+	  <thead>
+		<tr>
+		  <th>Name</th>
+		  
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr *ngFor="let part of partner">
+		  <td>{{part.name}}</td>
+		  
+		  <td>
+			<button type="button" class="btn btn-info" (click)="goToViewOf(part.id)">View</button>
+			</td>
+		</tr>
+		
+	  </tbody>
+	</table>
 			<button type="button" class="btn btn-info" (click)= "goToAddPartner(project.id)">+ Add Partner</button>
 
 		  	<button type="button" class="btn btn-primary" (click)="goBack()">Back</button>

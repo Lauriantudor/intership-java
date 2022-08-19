@@ -2,6 +2,7 @@ package com.tudor.appbackend.controllers;
 
 
 import com.tudor.appbackend.models.Partner;
+import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.servicies.PartnerService;
 import com.tudor.appbackend.servicies.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/rest/partner")
-
+@CrossOrigin
 public class PartnerController {
 
     @Autowired
@@ -22,33 +23,36 @@ public class PartnerController {
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
-    @PostMapping
-    @CrossOrigin("http://localhost:4200")
-    public ResponseEntity<Partner> addPartner(@RequestBody Partner part){
-        part.setId(sequenceGeneratorService.getSequenceNumber(Partner.SEQUENCE_NAME));
-        return  new ResponseEntity<Partner>(partnerService.addPartner(part), HttpStatus.OK);
-    }
+//    @PostMapping
+//
+//    public ResponseEntity<Partner> addPartner(@RequestBody Partner part){
+//        part.setId(sequenceGeneratorService.getSequenceNumber(Partner.SEQUENCE_NAME));
+//        return  new ResponseEntity<Partner>(partnerService.addPartner(part), HttpStatus.OK);
+//    }
     @GetMapping
-    @CrossOrigin("http://localhost:4200")
+
     public List<Partner> getPartners(){
         return partnerService.getPartners();
     }
     @GetMapping("/{id}")
-    @CrossOrigin("http://localhost:4200")
+
     public Optional<Partner> getProjectById(@PathVariable("id") int id){
 
         return partnerService.findById(id);
     }
-    @PutMapping("/{id}")
-    @CrossOrigin("http://localhost:4200")
-    public Partner updatePartner(@PathVariable("id") int id, @RequestBody Partner partner){
-        return partnerService.updatePartner(id, partner);
+    @PostMapping
+    public Partner updatePartner(@RequestBody Partner partner){
+        return partnerService.updatePartnerOrCreate( partner);
     }
 
     @DeleteMapping("{id}")
-    @CrossOrigin("http://localhost:4200")
     public String delete(@PathVariable("id") int id){
          partnerService.deleteBiId(id);
          return "deleted";
+    }
+    @GetMapping("getpartnersOf/{id}")
+
+    public List<Partner> partnerOfZ(@PathVariable("id") int id){
+         return partnerService.getPartnerOf(id);
     }
 }

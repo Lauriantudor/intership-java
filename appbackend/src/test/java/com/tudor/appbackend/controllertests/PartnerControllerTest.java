@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,8 +34,8 @@ public class PartnerControllerTest {
     @Test
     public void getPartnersTest(){
         when(repo.findAll()).thenReturn(Stream
-                .of(new Partner(4, "INSTA", "example@test.com", "(0723)-123-213", "facem teste"),
-                        new Partner(5, "Tud", "exampl@test.com", "(0723)-144-213", "fac teste")).collect(Collectors.toList()));
+                .of(new Partner(4, "INSTA", "example@test.com", "(0723)-123-213", "facem teste",0),
+                        new Partner(5, "Tud", "exampl@test.com", "(0723)-144-213", "fac teste",0)).collect(Collectors.toList()));
         assertEquals(2,service.getPartners().size());
     }
     @Test
@@ -46,6 +46,7 @@ public class PartnerControllerTest {
         part.setEmail("boock@gmail.com");
         part.setContactus("(0754)-878-090");
         part.setAboutus("boocks for all");
+        part.setProj_id(0);
 
         service.addPartner(part);
         assertNotNull(repo.findById(part.getId()));
@@ -82,7 +83,7 @@ public class PartnerControllerTest {
     }
 
     @Test
-    public void deletePartnerTest(){
+    public void deletePartner(){
         Partner part = new Partner();
         part.setId(34);
         part.setName("Boock");
@@ -90,7 +91,7 @@ public class PartnerControllerTest {
         part.setContactus("(0754)-878-090");
         part.setAboutus("boocks for all");
         service.deleteBiId(part.getId());
-        verify(repo,times(1)).deleteById(part.getId());
+        assertNull(part);
     }
 
 }

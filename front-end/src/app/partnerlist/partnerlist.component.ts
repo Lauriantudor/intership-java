@@ -30,13 +30,13 @@ export class PartnerlistComponent implements OnInit {
   goToViewOf(id:number){
     this.router.navigate(['viewpartner',id])
   }
-  deletePartner(id:number){
-    this.patnerService.deletePartner(id).subscribe(
+  deletePartner(partner:any){
+    this.patnerService.deletePartner(partner.id).subscribe(
       data =>{
         console.log("Deleted successfuly");
         this.partners=this.patnerService.listPartnersFromRemote();
       }, 
-      error => console.log("error")
+      error => console.log(error)
     )
   }
 

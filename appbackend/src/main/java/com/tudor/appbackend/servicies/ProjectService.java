@@ -1,31 +1,38 @@
 package com.tudor.appbackend.servicies;
 
+import com.tudor.appbackend.dto.ProjectDto;
+import com.tudor.appbackend.mappers.ProjectMapper;
 import com.tudor.appbackend.models.Partner;
 import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.repo.PartnerRepo;
 import com.tudor.appbackend.repo.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class ProjectService {
     @Autowired
     private ProjectRepo projectRepo;
     @Autowired
     private PartnerRepo partnerRepo;
 
-    public Project addProject(Project prj){
-        return projectRepo.save(prj);
+    @Autowired
+    private ProjectMapper projectMapper;
+
+    public ProjectDto addProject(ProjectDto projectDto){
+        Project project =  projectRepo.save(projectMapper.fromDto(projectDto));
+        return projectMapper.toDto(project);
     }
 
-    public List<Project> getProjects() {
-        return projectRepo.findAll();
+    public List<ProjectDto> getProjects() {
+        List<Project> projects =projectRepo.findAll();
+        return projectMapper.toDtoList(projects);
     }
+
+
 
     public Optional<Project> findById(int id)
     {
@@ -48,7 +55,6 @@ public class ProjectService {
         }
         return null;
     }
-
     public void delete(int id) {
         projectRepo.deleteById(id);
     }

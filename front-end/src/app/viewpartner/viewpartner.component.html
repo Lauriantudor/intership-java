@@ -1,5 +1,5 @@
 <div class="container">
-	<h2>Details of project</h2>
+	<h2>Details of Partner</h2>
 	        <div>
 				<label>Name:</label>{{ partner.name }}
 			</div>
@@ -14,4 +14,5 @@
 				<label>aboutus:</label>{{ partner.aboutus }}
 			</div>
 		  	<button type="button" class="btn btn-primary" (click)="goBack()">Back</button>
+		  	<button type="button" class="btn btn-primary" (click)="goToProject(partner.proj_id)">To Project</button>
   </div>

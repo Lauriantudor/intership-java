@@ -1,5 +1,7 @@
 package com.tudor.appbackend.controllers;
 
+import com.tudor.appbackend.dto.ProjectDto;
+import com.tudor.appbackend.models.Partner;
 import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.servicies.PartnerService;
 import com.tudor.appbackend.servicies.ProjectService;
@@ -14,43 +16,44 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/rest/project")
-
+@CrossOrigin
 public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
     @Autowired
     private PartnerService partnerService;
-
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:4200/")
-    public ResponseEntity<Project> addProject(@RequestBody Project prj){
-        prj.setId(sequenceGeneratorService.getSequenceNumber(Project.SEQUENCE_NAME));
-        return  new ResponseEntity<Project>(projectService.addProject(prj), HttpStatus.OK);
+
+    public ResponseEntity<ProjectDto> addProject(@RequestBody ProjectDto prjDto){
+        prjDto.setId(sequenceGeneratorService.getSequenceNumber(Project.SEQUENCE_NAME));
+        return  new ResponseEntity<ProjectDto>(projectService.addProject(prjDto), HttpStatus.OK);
     }
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:4200/")
-    public List<Project> getProjects(){
+    public List<ProjectDto> getProjects(){
+
         return projectService.getProjects();
     }
     @GetMapping("{id}")
     public Optional<Project> getProjectById(@PathVariable("id") int id){
+
         return projectService.findById(id);
     }
     @PutMapping("{id}")
-    @CrossOrigin(origins = "http://localhost:4200/")
     public Project updateProject(@PathVariable("id") int id, @RequestBody Project project){
         return projectService.updateProject(id, project);
     }
     @PostMapping("addto/{id}")
-    @CrossOrigin(origins = "http://localhost:4200/")
+
     public void addpartner(@PathVariable("id") int id,
-                              @RequestParam int idpart){
-        partnerService.addproject(id,idpart);
+                           @RequestBody Partner partner) {
+        partnerService.addproject(id, partner.getId());
 
     }
+
+
 
 
     @DeleteMapping("{id}")

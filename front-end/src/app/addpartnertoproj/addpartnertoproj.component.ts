@@ -24,15 +24,16 @@ export class AddpartnertoprojComponent implements OnInit {
     });
   }
 
-  addPartnerto(idpartner:number){
+  addPartnerto(part:any) {
      this.id = this._activatedRoute.snapshot.params['id'];
-    this.projectService.addPartnerto(this.id,idpartner).subscribe(
+    this.projectService.addPartnerto(this.id,part).subscribe(
       data =>{
         console.log("workt");
       },
       error => console.log("error")
     );
-    console.log("idproj"+ this.id+"                       id:"+idpartner)
+    console.log("idproj"+ this.id+"                       id:"+part.id
+    )
 
   }
 

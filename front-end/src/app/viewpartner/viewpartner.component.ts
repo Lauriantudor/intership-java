@@ -24,5 +24,13 @@ export class ViewpartnerComponent implements OnInit {
   goBack(){
     this.router.navigate(['partnerlist'])
   }
+  goToProject(id:any){
+  if(id != 0){
+    console.log(id);
+    this.router.navigate(['viewproject',id])
+  }else{
+    alert("No Project for this partner");
+  }
+  }
 
 }

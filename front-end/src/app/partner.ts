@@ -4,4 +4,5 @@ export class Partner{
 	email!:string
 	contactus!:string
 	aboutus!:string
+	proj_id!:number
 }
