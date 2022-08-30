@@ -1,6 +1,11 @@
+
 package com.tudor.appbackend.servicies;
 
 
+
+import com.tudor.appbackend.dto.PartnerDto;
+import com.tudor.appbackend.exceptions.ResourceNotFoundException;
+import com.tudor.appbackend.mappers.PartnerMapper;
 import com.tudor.appbackend.models.Partner;
 import com.tudor.appbackend.repo.PartnerRepo;
 import com.tudor.appbackend.repo.ProjectRepo;
@@ -25,42 +30,41 @@ public class PartnerService {
     private MongoCollection mongoCollection;
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
+
+    @Autowired
+    private PartnerMapper partnerMapper;
     private final MongoTemplate mongoTemplate;
 
     public PartnerService(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
-
-    public List<Partner> getPartners() {
-        return partnerRepo.findAll();
+    public PartnerDto addPartner(PartnerDto partnerDto){
+        Partner partner = partnerRepo.save(partnerMapper.fromDto(partnerDto));
+        return partnerMapper.toDto(partner);
+    }
+    public List<PartnerDto> getPartners() {
+        List<Partner> partners = partnerRepo.findAll();
+        return partnerMapper.toDtoList(partners);
     }
 
-    public Optional<Partner> findById(int id) {
-        return partnerRepo.findById(id);
+    public PartnerDto findById(int id) {
+        Partner partner =partnerRepo.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Partner with id "+id+ "not exist"));
+        return partnerMapper.toDto(partner);
     }
-    public Partner updatePartnerOrCreate( Partner partner){
-        Optional<Partner> findById = partnerRepo.findById(partner.getId());
-        if (findById == null){
-            partner.setId(sequenceGeneratorService.getSequenceNumber(Partner.SEQUENCE_NAME));
-            return partnerRepo.save(partner);
-
-        }else {
-            Partner partner1 = findById.get();
-            if (partner.getName() != null && !partner.getName().isEmpty())
-                partner1.setName(partner1.getName());
-            if (partner.getEmail() != null && !partner.getEmail().isEmpty())
-                partner1.setEmail(partner.getEmail());
-            if ( partner.getContactus() != null && !partner.getContactus().isEmpty())
-                partner1.setContactus(partner.getContactus());
-            if ( partner.getAboutus() != null && !partner.getAboutus().isEmpty())
-                partner1.setAboutus(partner.getAboutus());
-
-            return partnerRepo.save(partner1);
-
-
-        }
-
+    public PartnerDto updatePartner( int id, Partner partner){
+        Partner partnerData = partnerRepo.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Partner with id"+ id+ "not exist"));
+            if (partnerData!=null){
+                partnerData.setName(partner.getName());
+                partnerData.setEmail(partner.getEmail());
+                partnerData.setContactus(partner.getContactus());
+                partnerData.setAboutus(partner.getAboutus());
+                partnerRepo.save(partnerData);
+                return partnerMapper.toDto(partnerData);
+            }
+                return null;
     }
     public Partner addproject(int proj_id,int part_id){
         Optional<Partner> findById = partnerRepo.findById(part_id);

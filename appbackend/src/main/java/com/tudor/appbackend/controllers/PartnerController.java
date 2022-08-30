@@ -1,8 +1,8 @@
 package com.tudor.appbackend.controllers;
 
 
+import com.tudor.appbackend.dto.PartnerDto;
 import com.tudor.appbackend.models.Partner;
-import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.servicies.PartnerService;
 import com.tudor.appbackend.servicies.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/rest/partner")
@@ -23,26 +22,26 @@ public class PartnerController {
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
-//    @PostMapping
-//
-//    public ResponseEntity<Partner> addPartner(@RequestBody Partner part){
-//        part.setId(sequenceGeneratorService.getSequenceNumber(Partner.SEQUENCE_NAME));
-//        return  new ResponseEntity<Partner>(partnerService.addPartner(part), HttpStatus.OK);
-//    }
+    @PostMapping
+
+    public ResponseEntity<PartnerDto> addPartner(@RequestBody PartnerDto partDto){
+        partDto.setId(sequenceGeneratorService.getSequenceNumber(Partner.SEQUENCE_NAME));
+        return  new ResponseEntity<PartnerDto>(partnerService.addPartner(partDto), HttpStatus.OK);
+    }
     @GetMapping
 
-    public List<Partner> getPartners(){
+    public List<PartnerDto> getPartners(){
         return partnerService.getPartners();
     }
     @GetMapping("/{id}")
 
-    public Optional<Partner> getProjectById(@PathVariable("id") int id){
+    public PartnerDto getProjectById(@PathVariable("id") int id){
 
         return partnerService.findById(id);
     }
-    @PostMapping
-    public Partner updatePartner(@RequestBody Partner partner){
-        return partnerService.updatePartnerOrCreate( partner);
+    @PutMapping("{id}")
+    public PartnerDto updatePartner(@PathVariable("id") int id,@RequestBody Partner partner){
+        return partnerService.updatePartner(id, partner);
     }
 
     @DeleteMapping("{id}")

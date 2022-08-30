@@ -1,6 +1,7 @@
 package com.tudor.appbackend.servicies;
 
 import com.tudor.appbackend.dto.ProjectDto;
+import com.tudor.appbackend.exceptions.ResourceNotFoundException;
 import com.tudor.appbackend.mappers.ProjectMapper;
 import com.tudor.appbackend.models.Partner;
 import com.tudor.appbackend.models.Project;
@@ -38,22 +39,33 @@ public class ProjectService {
     {
         return  projectRepo.findById(id);
     }
-    public  Project updateProject(int id, Project project){
-        Optional<Project> findById = projectRepo.findById(id);
-        if (findById.isPresent()){
-            Project project1 = findById.get();
-            if (project.getName() != null && !project.getName().isEmpty())
-                project1.setName(project.getName());
-            if (project.getDatestart() != null && !project.getDatestart().isEmpty())
-                project1.setDatestart(project.getDatestart());
-            if (project.getDatefinish() != null && !project.getDatefinish().isEmpty())
-                project1.setDatefinish(project.getDatefinish());
-            if (project.getPrice() != null && !project.getPrice().isEmpty())
-                project1.setDatestart(project.getDatefinish());
+    public  ProjectDto updateProject(int id , ProjectDto projectDto){
+//                Optional<Project> findProject = projectRepo.findById(projectDto.getId());
+//                if (findProject.isPresent()){
+//                    Project project = new Project();
+//                    BeanUtils.copyProperties(projectDto, project);
+//                    project =projectRepo.save(project);
+//                    BeanUtils.copyProperties(project,projectDto);
+//                }
+//                else {
+//                    //TODO
+//                }
+//                return projectDto;
+        Project projectData = projectRepo.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Project with id"+ id+ "not exist"));
+        if (projectData !=null) {
 
-            return projectRepo.save(project1);
+            projectData.setName(projectDto.getName());
+            projectData.setDatestart(projectDto.getDatestart());
+            projectData.setDatefinish(projectDto.getDatefinish());
+            projectData.setDatestart(projectDto.getDatefinish());
+            projectRepo.save(projectData);
+            return projectMapper.toDto(projectData);
         }
+
         return null;
+
+        //return projectMapper.fromDto(addProject(projectMapper.toDto(project)));
     }
     public void delete(int id) {
         projectRepo.deleteById(id);

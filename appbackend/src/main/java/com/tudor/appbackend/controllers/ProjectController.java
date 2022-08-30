@@ -42,8 +42,8 @@ public class ProjectController {
         return projectService.findById(id);
     }
     @PutMapping("{id}")
-    public Project updateProject(@PathVariable("id") int id, @RequestBody Project project){
-        return projectService.updateProject(id, project);
+    public ProjectDto updateProject(@PathVariable("id") int id, @RequestBody ProjectDto projectDto){
+        return projectService.updateProject(id, projectDto);
     }
     @PostMapping("addto/{id}")
 

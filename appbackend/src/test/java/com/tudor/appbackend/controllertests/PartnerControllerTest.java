@@ -1,11 +1,7 @@
 package com.tudor.appbackend.controllertests;
 
 import com.tudor.appbackend.models.Partner;
-import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.repo.PartnerRepo;
-import com.tudor.appbackend.repo.ProjectRepo;
-import com.tudor.appbackend.servicies.PartnerService;
-import com.tudor.appbackend.servicies.ProjectService;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
