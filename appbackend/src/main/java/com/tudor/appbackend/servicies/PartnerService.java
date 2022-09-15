@@ -5,17 +5,14 @@ package com.tudor.appbackend.servicies;
 
 import com.tudor.appbackend.dto.PartnerDto;
 import com.tudor.appbackend.exceptions.ResourceNotFoundException;
-import com.tudor.appbackend.mappers.PartnerMapper;
+import com.tudor.appbackend.mappers.DtoMapper;
 import com.tudor.appbackend.models.Partner;
 import com.tudor.appbackend.repo.PartnerRepo;
 import com.tudor.appbackend.repo.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import  com.mongodb.client.MongoCollection ;
 
@@ -32,7 +29,7 @@ public class PartnerService {
     private SequenceGeneratorService sequenceGeneratorService;
 
     @Autowired
-    private PartnerMapper partnerMapper;
+    private DtoMapper mapper;
     private final MongoTemplate mongoTemplate;
 
     public PartnerService(MongoTemplate mongoTemplate) {
@@ -40,18 +37,18 @@ public class PartnerService {
     }
 
     public PartnerDto addPartner(PartnerDto partnerDto){
-        Partner partner = partnerRepo.save(partnerMapper.fromDto(partnerDto));
-        return partnerMapper.toDto(partner);
+        Partner partner = partnerRepo.save(mapper.fromDtoPartner(partnerDto));
+        return mapper.toDtoPartner(partner);
     }
     public List<PartnerDto> getPartners() {
         List<Partner> partners = partnerRepo.findAll();
-        return partnerMapper.toDtoList(partners);
+        return mapper.toDtoPartnerList(partners);
     }
 
     public PartnerDto findById(int id) {
         Partner partner =partnerRepo.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Partner with id "+id+ "not exist"));
-        return partnerMapper.toDto(partner);
+        return mapper.toDtoPartner(partner);
     }
     public PartnerDto updatePartner( int id, Partner partner){
         Partner partnerData = partnerRepo.findById(id)
@@ -62,7 +59,7 @@ public class PartnerService {
                 partnerData.setContactus(partner.getContactus());
                 partnerData.setAboutus(partner.getAboutus());
                 partnerRepo.save(partnerData);
-                return partnerMapper.toDto(partnerData);
+                return mapper.toDtoPartner(partnerData);
             }
                 return null;
     }

@@ -18,7 +18,7 @@ export class ViewpartnerComponent implements OnInit {
     this.id= this._activatedRoute.snapshot.params['id']
     this._partnerService.partnerById(this.id).subscribe(
       data=> this.partner=data,
-      error=> console.log("error")
+      error=> console.log(error)
     )
   }
   goBack(){

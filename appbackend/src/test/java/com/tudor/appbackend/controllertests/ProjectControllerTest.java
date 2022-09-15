@@ -4,6 +4,7 @@ import static org.mockito.Mockito.*;
 
 import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.repo.ProjectRepo;
+import com.tudor.appbackend.servicies.PartnerService;
 import com.tudor.appbackend.servicies.ProjectService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

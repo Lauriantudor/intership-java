@@ -8,6 +8,7 @@ import { EditprojectComponent } from './editproject/editproject.component';
 import { AddprojectComponent } from './addproject/addproject.component';
 import { ViewprojectComponent } from './viewproject/viewproject.component';
 import { HomeComponent } from './home/home.component';
+import {NavbarComponent } from './navbar/navbar.component';
 import { PartnerlistComponent } from './partnerlist/partnerlist.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,7 +17,8 @@ import { ViewpartnerComponent } from './viewpartner/viewpartner.component';
 import { EditpartnerComponent } from './editpartner/editpartner.component';
 import { AddpartnertoprojComponent } from './addpartnertoproj/addpartnertoproj.component';
 
-@NgModule({
+ 
+ @NgModule({
   declarations: [
     AppComponent,
     ProjectlistComponent,
@@ -25,6 +27,7 @@ import { AddpartnertoprojComponent } from './addpartnertoproj/addpartnertoproj.c
     ViewprojectComponent,
     HomeComponent,
     PartnerlistComponent,
+    NavbarComponent,
     AddpartnerComponent,
     ViewpartnerComponent,
     EditpartnerComponent,
@@ -34,7 +37,7 @@ import { AddpartnertoprojComponent } from './addpartnertoproj/addpartnertoproj.c
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

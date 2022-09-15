@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  web:
+    build: ./front-end
+    ports:
+    - "4200:4200"
+  api:
+    build: ./appbackend
+    ports:
+    - "8080:8080"
+    environment:
+      DB_URL: mongodb://db/test
+  db: 
+   image: mongo:4.0-xenial
+   ports:
+   - "27017:27017"
+

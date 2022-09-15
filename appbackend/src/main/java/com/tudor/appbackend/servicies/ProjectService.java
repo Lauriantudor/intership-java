@@ -2,8 +2,7 @@ package com.tudor.appbackend.servicies;
 
 import com.tudor.appbackend.dto.ProjectDto;
 import com.tudor.appbackend.exceptions.ResourceNotFoundException;
-import com.tudor.appbackend.mappers.ProjectMapper;
-import com.tudor.appbackend.models.Partner;
+import com.tudor.appbackend.mappers.DtoMapper;
 import com.tudor.appbackend.models.Project;
 import com.tudor.appbackend.repo.PartnerRepo;
 import com.tudor.appbackend.repo.ProjectRepo;
@@ -21,16 +20,16 @@ public class ProjectService {
     private PartnerRepo partnerRepo;
 
     @Autowired
-    private ProjectMapper projectMapper;
+    private DtoMapper mapper;
 
     public ProjectDto addProject(ProjectDto projectDto){
-        Project project =  projectRepo.save(projectMapper.fromDto(projectDto));
-        return projectMapper.toDto(project);
+        Project project =  projectRepo.save(mapper.fromDtoProject(projectDto));
+        return mapper.toDtoProject(project);
     }
 
     public List<ProjectDto> getProjects() {
         List<Project> projects =projectRepo.findAll();
-        return projectMapper.toDtoList(projects);
+        return mapper.toDtoProjectList(projects);
     }
 
 
@@ -40,17 +39,6 @@ public class ProjectService {
         return  projectRepo.findById(id);
     }
     public  ProjectDto updateProject(int id , ProjectDto projectDto){
-//                Optional<Project> findProject = projectRepo.findById(projectDto.getId());
-//                if (findProject.isPresent()){
-//                    Project project = new Project();
-//                    BeanUtils.copyProperties(projectDto, project);
-//                    project =projectRepo.save(project);
-//                    BeanUtils.copyProperties(project,projectDto);
-//                }
-//                else {
-//                    //TODO
-//                }
-//                return projectDto;
         Project projectData = projectRepo.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Project with id"+ id+ "not exist"));
         if (projectData !=null) {
@@ -60,7 +48,7 @@ public class ProjectService {
             projectData.setDatefinish(projectDto.getDatefinish());
             projectData.setDatestart(projectDto.getDatefinish());
             projectRepo.save(projectData);
-            return projectMapper.toDto(projectData);
+            return mapper.toDtoProject(projectData);
         }
 
         return null;
